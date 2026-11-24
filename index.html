@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Telapp — Patrones de Telar</title>
+  <link rel="icon" type="image/png" href="logotrans.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
+</head>
+<body>
+  <div id="splashScreen" class="splash" aria-label="Cargando aplicación">
+    <div class="splash-card">
+      <div class="splash-logo-wrap">
+        <img src="logotrans.png" alt="Logo Telapp" class="splash-logo custom-logo" />
+      </div>
+      <h2 class="splash-title">Telapp</h2>
+      <p class="splash-sub">Preparando cuadrícula de precisión...</p>
+      <div class="loader-bar"><span></span></div>
+      <button id="btnSkipSplash" class="splash-skip" type="button">Entrar ahora</button>
+    </div>
+  </div>
+
+  <main id="viewport">
+    <canvas id="gridCanvas"></canvas>
+  </main>
+
+  <aside id="panel" class="panel-bottom">
+    <div class="panel-mobile-bar">
+      <div class="brand-mini">
+        <img src="logotrans.png" alt="Logo Telapp" class="brand-logo-mini custom-logo" />
+        <strong>Telapp</strong>
+      </div>
+      <button id="btnTogglePanel" class="mobile-toggle" type="button" aria-expanded="true">
+        Ocultar controles ▼
+      </button>
+    </div>
+
+    <div class="panel-content">
+      <header class="brand">
+        <img src="logotrans.png" alt="Logo Telapp" class="brand-logo custom-logo" />
+        <div>
+          <h1>Telapp</h1>
+          <small>Diseño textil (mín. 0.03 cm)</small>
+        </div>
+      </header>
+
+      <div class="grid-inputs">
+        <label>
+          Ancho (cm):
+          <input id="widthCm" type="number" value="6" min="0.1" step="0.5" />
+        </label>
+
+        <label>
+          Alto (cm):
+          <input id="heightCm" type="number" value="6" min="0.1" step="0.5" />
+        </label>
+      </div>
+
+      <div class="grid-inputs">
+        <label>
+          Cuadrícula (cm):
+          <input id="cellCm" type="number" value="0.1" min="0.03" step="0.01" />
+        </label>
+
+        <label>
+          Color:
+          <input id="colorPicker" type="color" value="#b91c1c" />
+        </label>
+      </div>
+
+      <label>
+        Simetría:
+        <select id="symmetryMode">
+          <option value="none">Sin simetría</option>
+          <option value="h">Espejo horizontal</option>
+          <option value="v">Espejo vertical</option>
+          <option value="quad">Cuádruple</option>
+        </select>
+      </label>
+
+      <div class="tools">
+        <button id="toolBrush" class="active" type="button">Pincel</button>
+        <button id="toolEraser" type="button">Borrador</button>
+      </div>
+
+      <div class="history-actions">
+        <button id="btnUndo" type="button" disabled>Deshacer</button>
+        <button id="btnRedo" type="button" disabled>Rehacer</button>
+      </div>
+
+      <label>
+        Zoom: <span id="zoomLabel">6x</span>
+        <input id="zoomRange" type="range" min="2" max="25" value="6" step="1" />
+      </label>
+
+      <div class="actions">
+        <button id="btnPdf" type="button">Guardar PDF</button>
+        <button id="btnShare" type="button">Copiar enlace</button>
+      </div>
+
+      <button id="btnClear" class="btn-danger" type="button">Borrar todo</button>
+
+      <button id="btnAppInfo" class="btn-info" type="button">Información de la app</button>
+
+      <span id="statusMsg" class="status" aria-live="polite"></span>
+
+      <div class="stats-box">
+        <strong>Conteo por color</strong>
+        <ul id="colorStats"></ul>
+      </div>
+    </div>
+  </aside>
+
+  <div id="infoModal" class="info-modal hidden" role="dialog" aria-modal="true" aria-labelledby="infoModalTitle">
+    <div class="info-card">
+      <div class="info-header">
+        <img src="logopacha.svg" alt="Logo Telapp" class="info-logo custom-logo" />
+        <div>
+          <h2 id="infoModalTitle">Información de la app</h2>
+        </div>
+        <button id="btnCloseInfo" class="info-close" type="button" aria-label="Cerrar información">✕</button>
+      </div>
+
+      <div class="info-body">
+        <p><strong>Telapp</strong>Es una herramienta para crear patrones y replicarlos en telar.</p>
+        <p><strong>Desarrollado por:</strong> Pacha-Ltda.</p>
+        <p><strong>Uso táctil:</strong> Lienzo programable, con simteria espejo para mejor rendmiento
+
+      <div class="info-footer">
+        <span class="info-credit">by Pacha copyright 2026</span>
+        </span>
+        <button id="btnAcceptInfo" class="info-ok" type="button">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
